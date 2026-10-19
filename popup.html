@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Phishing Website Detector</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-group">
+        <div class="logo-icon-wrap">
+          <svg class="shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="header-text">
+          <h1 class="app-title">AI Phishing Detector</h1>
+          <p class="app-subtitle">Client-Side ML • BCA Project Demo</p>
+        </div>
+      </div>
+      <div class="badge-offline" title="Inference runs locally in your browser">100% Local</div>
+    </header>
+
+    <!-- Scan Options Bar -->
+    <section class="scan-section">
+      <div class="action-row">
+        <button id="btn-scan-current" class="btn btn-secondary">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          Scan Current Tab
+        </button>
+      </div>
+
+      <div class="divider">
+        <span>or enter a custom URL</span>
+      </div>
+
+      <!-- URL Input Group -->
+      <form id="url-form" class="url-input-form" novalidate>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="url-input" 
+            placeholder="e.g. http://paypal-verify-account.com/login" 
+            autocomplete="off" 
+            spellcheck="false"
+          />
+          <button type="button" id="btn-clear-input" class="btn-clear hidden" title="Clear input">&times;</button>
+        </div>
+        <button type="submit" id="btn-check" class="btn btn-primary">
+          <span>Check Website</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- Loading State -->
+    <div id="loading-state" class="state-card hidden">
+      <div class="spinner"></div>
+      <p class="loading-text">Extracting URL features & running ML inference...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="state-card error-card hidden">
+      <div class="error-icon">⚠️</div>
+      <div class="error-content">
+        <h3 id="error-title">Invalid URL</h3>
+        <p id="error-message">Please provide a valid web address (e.g., https://example.com).</p>
+      </div>
+      <button id="btn-dismiss-error" class="btn-small">Dismiss</button>
+    </div>
+
+    <!-- Result State -->
+    <main id="result-state" class="result-container hidden">
+      <!-- Status Card -->
+      <div id="status-card" class="status-card">
+        <div class="status-header">
+          <span class="status-label">Website Status</span>
+          <span id="risk-badge" class="risk-badge badge-legitimate">Legitimate</span>
+        </div>
+        <h2 id="result-headline" class="result-headline">Website Appears Legitimate</h2>
+        <div class="url-display" id="scanned-url-display" title=""></div>
+
+        <!-- Risk Meter -->
+        <div class="risk-meter-wrap">
+          <div class="meter-labels">
+            <span>Calculated Phishing Probability:</span>
+            <strong id="risk-percent">0.0%</strong>
+          </div>
+          <div class="meter-track">
+            <div id="meter-fill" class="meter-fill"></div>
+          </div>
+          <div class="threshold-indicators">
+            <span>0% Safe</span>
+            <span class="threshold-marker marker-mid">35%</span>
+            <span class="threshold-marker marker-high">70%</span>
+            <span>100% Phishing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reasons / Explanation -->
+      <div class="card explanations-card">
+        <h3 class="card-title">
+          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          Risk Analysis & Detected Reasons
+        </h3>
+        <ul id="reasons-list" class="reasons-list">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+
+      <!-- Warning Page CTA for High Risk -->
+      <div id="high-risk-alert" class="card high-risk-card hidden">
+        <div class="alert-icon">🛡️</div>
+        <div class="alert-info">
+          <h4>High Risk Warning</h4>
+          <p>This URL displays multiple high-probability phishing indicators.</p>
+        </div>
+        <button id="btn-open-warning" class="btn btn-warning">View Safety Warning</button>
+      </div>
+
+      <!-- Detailed Feature Breakdown (Collapsible) -->
+      <div class="card features-breakdown-card">
+        <button id="btn-toggle-features" class="btn-accordion">
+          <span>Inspect Extracted Features (10 Indicators)</span>
+          <span id="accordion-arrow" class="accordion-arrow">▼</span>
+        </button>
+        <div id="features-table-container" class="features-table-wrap hidden">
+          <table class="features-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Extracted Value</th>
+                <th>Model Impact</th>
+              </tr>
+            </thead>
+            <tbody id="features-table-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Reset / Scan Another -->
+      <div class="reset-row">
+        <button id="btn-scan-another" class="btn btn-outline">Scan Another Website</button>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="model-info">
+        <span>Model: <strong>Logistic Regression (93.61% Accuracy)</strong></span>
+        <span>Guide: <strong>[Faculty Guide Name]</strong> • AIIT, Amity University</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="features.js"></script>
+  <script src="model.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

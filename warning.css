@@ -1,0 +1,238 @@
+/* ==========================================================================
+   warning.css — High Risk Phishing Warning Screen
+   Theme: High-contrast Alert Navy & Crimson
+   ========================================================================== */
+
+:root {
+  --bg-dark: #080d1a;
+  --bg-card: #0f172a;
+  --bg-inner: #1e293b;
+  --border-red: #ef4444;
+  --border-subtle: #334155;
+  --text-white: #f8fafc;
+  --text-gray: #94a3b8;
+  --text-muted: #64748b;
+  --red-accent: #ef4444;
+  --red-light: #fca5a5;
+  --btn-safety-bg: #10b981;
+  --btn-safety-hover: #059669;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  line-height: 1.5;
+}
+
+.warning-container {
+  width: 100%;
+  max-width: 640px;
+}
+
+.warning-card {
+  background-color: var(--bg-card);
+  border: 2px solid rgba(239, 68, 68, 0.4);
+  box-shadow: 0 10px 40px rgba(239, 68, 68, 0.15);
+  border-radius: 16px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header-icon-wrap {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.15);
+  border: 2px solid var(--red-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -4px;
+}
+
+.warning-shield-icon {
+  width: 32px;
+  height: 32px;
+  color: var(--red-accent);
+}
+
+.warning-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.warning-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-white);
+  letter-spacing: -0.5px;
+}
+
+.warning-lead {
+  font-size: 15px;
+  color: var(--text-gray);
+  line-height: 1.5;
+}
+
+.url-box {
+  background-color: var(--bg-inner);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.url-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.url-text {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  color: #fb7185;
+  word-break: break-all;
+}
+
+.reasons-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-white);
+  margin-bottom: 8px;
+}
+
+.warning-reasons {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.warning-reasons li {
+  font-size: 13px;
+  color: #cbd5e1;
+  padding-left: 18px;
+  position: relative;
+}
+
+.warning-reasons li::before {
+  content: '⚠️';
+  position: absolute;
+  left: 0;
+  font-size: 11px;
+  top: 2px;
+}
+
+.advisory-box {
+  background-color: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.advisory-box h4 {
+  font-size: 13px;
+  color: #fbbf24;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.advisory-box ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  font-size: 12.5px;
+  color: #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.advisory-box strong {
+  color: #fff;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.btn-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-safety {
+  flex: 2;
+  background-color: var(--btn-safety-bg);
+  color: #042f2e;
+}
+
+.btn-safety:hover {
+  background-color: var(--btn-safety-hover);
+  color: #ffffff;
+}
+
+.btn-bypass {
+  flex: 1;
+  background-color: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+}
+
+.btn-bypass:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: var(--red-light);
+}
+
+.warning-footer {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 14px;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+}

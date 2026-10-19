@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Warning — Suspected Phishing Website</title>
+  <link rel="stylesheet" href="warning.css">
+</head>
+<body>
+  <div class="warning-container">
+    <div class="warning-card">
+      <!-- Shield Alert Header -->
+      <div class="header-icon-wrap">
+        <svg class="warning-shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+
+      <div class="warning-badge">High Risk Detected</div>
+      <h1 class="warning-title">Deceptive Website Warning</h1>
+      <p class="warning-lead">
+        The AI Phishing Detector has classified the website below as a probable phishing or fraudulent site.
+      </p>
+
+      <!-- URL Target Box -->
+      <div class="url-box">
+        <span class="url-label">Target URL:</span>
+        <span id="target-url-text" class="url-text">Loading URL...</span>
+      </div>
+
+      <!-- Detection Reasons Box -->
+      <div class="reasons-section">
+        <h3>Why was this website flagged?</h3>
+        <ul id="warning-reasons-list" class="warning-reasons">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+
+      <!-- Safety Advisory Box -->
+      <div class="advisory-box">
+        <h4>Critical Safety Advice</h4>
+        <ul>
+          <li><strong>Never enter your passwords, PINs, or OTPs</strong> on this page.</li>
+          <li><strong>Never enter credit card or banking information.</strong></li>
+          <li>Phishing websites often impersonate legitimate services (banks, payment gateways, social media) to steal credentials.</li>
+        </ul>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button id="btn-back-safety" class="btn btn-safety">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Go Back to Safety
+        </button>
+        <button id="btn-proceed-unsafe" class="btn btn-bypass">
+          Proceed to Website (Unsafe)
+        </button>
+      </div>
+
+      <!-- Footer Info -->
+      <div class="warning-footer">
+        <p>AI-Powered Phishing Website Detector • Model: Logistic Regression (Client-Side) • Amity University Jharkhand</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="features.js"></script>
+  <script src="model.js"></script>
+  <script src="warning.js"></script>
+</body>
+</html>
